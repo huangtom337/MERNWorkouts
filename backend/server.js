@@ -1,5 +1,6 @@
 const express = require('express')
-const routes = require('./routes/workoutRoutes')
+const workoutRoutes = require('./routes/workoutRoutes')
+const userRoutes = require('./routes/userRoutes')
 const mongoose = require('mongoose')
 require('dotenv').config()
 const cors = require('cors')
@@ -25,4 +26,5 @@ app.use((req, res, next) => {
 app.use(express.json()) //any req that has body gets attached to req handler
 
 //routes
-app.use('/api/workouts', routes)
+app.use('/api/workouts', workoutRoutes)
+app.use('/api/user', userRoutes)
