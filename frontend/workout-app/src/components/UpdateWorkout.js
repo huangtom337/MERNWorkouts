@@ -1,5 +1,6 @@
 import useWorkoutContext from "../hooks/useWorkoutContext"
 import { useState } from "react"
+import useAuthContext from "../hooks/userAuthContext"
 
 const UpdateWorkout = ({id}) => {
 
@@ -8,18 +9,25 @@ const UpdateWorkout = ({id}) => {
     const [load, setLoad] = useState('')
     const [reps, setReps] = useState('')
     const [error, setError] = useState(null)
-    
-    const url = 'http://localhost:4000/api/workouts/'
+    const {user} = useAuthContext()
+
 
     const handleUpdate = async(e) => {
         e.preventDefault()
-        const workout = {title, load, reps}
+        console.log('logged in')
+        if (!user) {
+            setError('User must be logged in')
+            return
+        }
 
-        const response = await fetch(url + id, {
+        const workout = {title, load, reps}
+        
+        const response = await fetch('http://localhost:4000/api/workouts/' + id, {
             method: 'PATCH',
             body: JSON.stringify(workout),
             headers: {
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                'Authorization': `Bearer ${user.token}`
             }
         })
 

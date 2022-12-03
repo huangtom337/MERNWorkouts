@@ -3,19 +3,24 @@ import { useParams } from "react-router-dom";
 import useWorkoutContext from "../hooks/useWorkoutContext";
 import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 import UpdateWorkout from "./UpdateWorkout";
+import useAuthContext from "../hooks/userAuthContext";
+
 
 const Workout = () => {
     const { workouts, dispatch } = useWorkoutContext()
     const { id } = useParams()
-    const url = 'http://localhost:4000/api/workouts/'
-
+    const {user} = useAuthContext()
 
 
     useEffect(() => {
         
         const fetchWorkout = async() => {
            
-            const response = await fetch(url + id)
+            const response = await fetch('http://localhost:4000/api/workouts/' + id, {
+                headers: {
+                    'Authorization': `Bearer ${user.token}`
+                }
+            })
             const json = await response.json()
        
             if (response.ok) {
@@ -23,9 +28,12 @@ const Workout = () => {
             }
         
         }
-        fetchWorkout()
+        if (user) {
+            fetchWorkout()
+        } 
+
         
-    },[id, url, dispatch])
+    },[id, dispatch, user])
 
 
 

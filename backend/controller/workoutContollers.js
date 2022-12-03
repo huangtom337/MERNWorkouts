@@ -9,8 +9,9 @@ const workout_getAll = (async(req, res) => {
     //     .catch(err => {
     //         res.status(400).json({ error: err.message })
     //     })
-    
-    const workouts = await workoutModel.find({}).sort({createdAt: -1})
+    const user_id = req.user._id
+
+    const workouts = await workoutModel.find({ user_id }).sort({createdAt: -1})
 
     res.status(200).json(workouts)
 })
@@ -18,7 +19,8 @@ const workout_getAll = (async(req, res) => {
 const workout_getOne = (async(req, res) => {
     // const id = req.params.id
     const { id } = req.params
-
+    console.log(req.params)
+    const user_id = req.user._id
     // try {
     //     const workout = await workoutModel.findById(id)
     //     res.status(200).json(workout)
@@ -40,7 +42,7 @@ const workout_getOne = (async(req, res) => {
 })
 
 const workout_create = ((req, res) => {
-    // const { title, reps, load } = req.body
+    const { title, reps, load } = req.body
 
     // try {
     //     const workout = await workoutModel.create({
@@ -50,8 +52,9 @@ const workout_create = ((req, res) => {
     // } catch (e) {
     //     res.status(400).json({error: e.message})
     // }
+    const user_id = req.user._id
 
-    workoutModel.create(req.body)
+    workoutModel.create({title, load, reps, user_id})
         .then(result => {
             res.status(200).json(result)
         })

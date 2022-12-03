@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import useWorkoutContext from "../hooks/useWorkoutContext";
+import useAuthContext from "../hooks/userAuthContext";
 
 //components
 import CreateWorkout from "../components/CreateWorkout";
@@ -7,13 +8,18 @@ import WorkoutDetails from "../components/WorkoutDetails";
 
 const Home = () => {
     const {workouts, dispatch} = useWorkoutContext()
+    const {user} = useAuthContext()
 
-    const url = 'http://localhost:4000/api/workouts'
+ 
 
     useEffect(() => {
         const fetchWorkout = async() => {
-
-            const response = await fetch(url)
+            
+            const response = await fetch('http://localhost:4000/api/workouts', {
+                headers: {
+                    'Authorization': `Bearer ${user.token}`
+                }
+            })
             const json = await response.json()
 
             if (response.ok) {
@@ -22,12 +28,17 @@ const Home = () => {
                 console.log(json.error)
             }
         }
-        fetchWorkout()
-    }, [dispatch]) //dispatch is not a dependency to avoid fetching again for changes, instead we update locally 
+
+        if (user) {
+            
+            fetchWorkout()
+        }
+
+    }, [dispatch, user]) //dispatch is not a dependency to avoid fetching again for changes, instead we update locally 
 
     return (
         <div className="home">
-            <div className="workout">
+            <div className="workouts">
                 {workouts && workouts.map(workout => (
                     <WorkoutDetails workout={workout} key={workout._id}/>
                 ))}
