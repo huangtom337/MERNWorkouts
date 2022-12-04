@@ -14,7 +14,7 @@ const UpdateWorkout = ({id}) => {
 
     const handleUpdate = async(e) => {
         e.preventDefault()
-        console.log('logged in')
+
         if (!user) {
             setError('User must be logged in')
             return
@@ -22,7 +22,7 @@ const UpdateWorkout = ({id}) => {
 
         const workout = {title, load, reps}
         
-        const response = await fetch(`https://localhost:4000/api/workouts` + id, {
+        const response = await fetch('http://localhost:4000/api/workouts/' + id, {
             method: 'PATCH',
             body: JSON.stringify(workout),
             headers: {

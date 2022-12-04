@@ -60,6 +60,7 @@ userSchema.statics.signup = async function(email, password) {
         throw Error('Email already in use')
     }
 
+    //hash password
     const salt = await bcrpyt.genSalt(10)
     const hashed = await bcrpyt.hash(password, salt)
 

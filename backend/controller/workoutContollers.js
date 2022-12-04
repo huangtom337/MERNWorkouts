@@ -1,14 +1,9 @@
 const workoutModel = require('../models/workoutSchema')
 const mongoose = require('mongoose')
 
+//get all workout for specific user
 const workout_getAll = (async(req, res) => {
-    // workoutModel.find()
-    //     .then(result => {
-    //         res.status(200).json(result)
-    //     })
-    //     .catch(err => {
-    //         res.status(400).json({ error: err.message })
-    //     })
+
     const user_id = req.user._id
 
     const workouts = await workoutModel.find({ user_id }).sort({createdAt: -1})
@@ -16,17 +11,12 @@ const workout_getAll = (async(req, res) => {
     res.status(200).json(workouts)
 })
 
+//get a speicifc workout for a specific user
 const workout_getOne = (async(req, res) => {
-    // const id = req.params.id
     const { id } = req.params
     console.log(req.params)
     const user_id = req.user._id
-    // try {
-    //     const workout = await workoutModel.findById(id)
-    //     res.status(200).json(workout)
-    // } catch (e) {
-    //     res.status(400).json({error: e.message})
-    // }
+
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({error: 'No such workout'})
     }
@@ -41,17 +31,9 @@ const workout_getOne = (async(req, res) => {
 
 })
 
+//create a new workout in database for the user
 const workout_create = ((req, res) => {
     const { title, reps, load } = req.body
-
-    // try {
-    //     const workout = await workoutModel.create({
-    //         title, load, reps
-    //     })
-    //     res.status(200).json(workout)
-    // } catch (e) {
-    //     res.status(400).json({error: e.message})
-    // }
     const user_id = req.user._id
 
     workoutModel.create({title, load, reps, user_id})
@@ -63,6 +45,7 @@ const workout_create = ((req, res) => {
         })
 })
 
+//deletes a workout in database for the user
 const workout_delete = (async(req, res) => {
     const { id } = req.params
 
@@ -75,6 +58,7 @@ const workout_delete = (async(req, res) => {
     }
 })
 
+//updates a workout for the user
 const workout_update = (async(req, res) => {
     const { id } = req.params
 

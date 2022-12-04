@@ -16,7 +16,7 @@ const Workout = () => {
         
         const fetchWorkout = async() => {
            
-            const response = await fetch(`https://localhost:4000/api/workouts` + id, {
+            const response = await fetch('http://localhost:4000/api/workouts/' + id, {
                 headers: {
                     'Authorization': `Bearer ${user.token}`
                 }

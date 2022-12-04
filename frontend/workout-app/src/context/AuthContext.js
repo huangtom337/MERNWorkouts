@@ -5,7 +5,6 @@ export const AuthContext = createContext()
 export const AuthContextReducer = (state, action) => {
     switch (action.type) {
         case 'LOGGED_IN':
-            console.log('reached')
             return {
                 user: action.payload
             }
@@ -24,14 +23,16 @@ export const AuthContextProvider = ({ children }) => {
     })
 
     useEffect(() => {
+        //converts local storage JSON user to javascript object 
         const user = JSON.parse(localStorage.getItem('user'))
 
         if (user) {
+            //update global variable
             dispatch({type: 'LOGGED_IN', payload: user})
         }
     }, [])
 
-    console.log('Auth state: ', state)
+    // console.log('Auth state: ', state)
     return ( //using ..state because there could be more than one element in state, right now its just user we couldve just done state.user
         <AuthContext.Provider value={{...state, dispatch}}>
             { children }
