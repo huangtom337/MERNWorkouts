@@ -136,13 +136,13 @@ form.signup, form.login {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 30%;
+  width: 40%;
 }
 
 .home .description h1{
   text-align: center;
   font-family: "Poppins";
-  font-size: 2em;
+  font-size: 3em;
   color: #333;
   text-decoration: none;
 }
