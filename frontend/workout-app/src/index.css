@@ -10,6 +10,7 @@ body {
   margin: 0;
   font-family: "Poppins";
 }
+
 header {
   background: #fff;
 }
@@ -31,7 +32,7 @@ header a {
   margin: 0 auto;
 }
 /* homepage */
-.home {
+.workoutHomePage {
   display: grid;
   grid-template-columns: 3fr 1fr;
   gap: 100px;
@@ -128,4 +129,19 @@ form.signup, form.login {
   padding: 20px;
   background: #fff;
   border-radius: 4px;
+}
+
+.home-logo img{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.home .description h1{
+  text-align: center;
+  font-family: "Poppins";
+  font-size: 3em;
+  color: #333;
+  text-decoration: none;
 }
