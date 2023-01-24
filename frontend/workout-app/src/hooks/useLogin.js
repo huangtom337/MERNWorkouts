@@ -10,13 +10,16 @@ export const useLogin = () => {
     setLoading(true);
     setError(null);
 
-    const response = await fetch('http://localhost:4000/api/user/login/', {
-      method: 'POST',
-      body: JSON.stringify({ email, password }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    const response = await fetch(
+      'https://workouttracker.pages.dev/api/user/login/',
+      {
+        method: 'POST',
+        body: JSON.stringify({ email, password }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
 
     const json = await response.json();
     setLoading(false);
