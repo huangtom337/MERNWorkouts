@@ -11,7 +11,7 @@ export const useLogin = () => {
     setError(null);
 
     const response = await fetch(
-      'https://workouttracker.pages.dev/api/user/login/',
+      'https://workouttracker-mrde.onrender.com/api/user/login/',
       {
         method: 'POST',
         body: JSON.stringify({ email, password }),

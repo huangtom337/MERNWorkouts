@@ -14,7 +14,7 @@ const Workout = () => {
   useEffect(() => {
     const fetchWorkout = async () => {
       const response = await fetch(
-        'https://workouttracker.pages.dev/workouts/' + id,
+        'https://workouttracker-mrde.onrender.com/workouts/' + id,
         {
           headers: {
             Authorization: `Bearer ${user.token}`,

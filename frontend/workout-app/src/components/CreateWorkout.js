@@ -21,7 +21,7 @@ const CreateWorkout = () => {
     const workout = { title, load, reps };
 
     const response = await fetch(
-      'https://workouttracker.pages.dev/api/workouts',
+      'https://workouttracker-mrde.onrender.com/api/workouts',
       {
         method: 'POST',
         body: JSON.stringify(workout),
