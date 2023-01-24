@@ -18,6 +18,16 @@ const CreateWorkout = () => {
       return;
     }
 
+    if (!load) {
+      setError('Please enter a valid load value');
+      return;
+    }
+
+    if (!reps) {
+      setError('Please enter a valid reps value');
+      return;
+    }
+
     const workout = { title, load, reps };
 
     const response = await fetch(
@@ -62,7 +72,7 @@ const CreateWorkout = () => {
       <input
         type='number'
         onChange={(e) => {
-          setLoad(e.target.value);
+          e.target.value > 0 ? setLoad(e.target.value) : setLoad(''); // has to be positive
         }}
         value={load}
         required={true}
@@ -72,7 +82,7 @@ const CreateWorkout = () => {
       <input
         type='number'
         onChange={(e) => {
-          setReps(e.target.value);
+          e.target.value > 0 ? setReps(e.target.value) : setReps('');
         }}
         value={reps}
         required={true}
